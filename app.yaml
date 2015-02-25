@@ -1,0 +1,13 @@
+application: mapping-sexual-violence
+version: 1
+runtime: go
+api_version: go1
+
+handlers:
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+- url: /
+  static_dir: static
+- url: /post/.*
+  script: _go_app
