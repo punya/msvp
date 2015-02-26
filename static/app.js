@@ -16,6 +16,11 @@
   map.addLayer(markers);
   map.locate({setView: true, maxZoom: 16});
 
+  var locateControl = L.control.locate({
+    drawCircle: false,
+    follow: false
+  }).addTo(map);
+
   function Incident(text, lat, lng) {
     this.text = text;
     this.lat = lat;

@@ -17,13 +17,3 @@ body {
 .navbar .navbar-brand {
   font-weight: bold;
 }
-
-#sidebar {
-  width: 250px;
-  height: 100%;
-  max-width: 100%;
-  float: left;
-  -webkit-transition: all 0.25s ease-out;
-    -moz-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-}
