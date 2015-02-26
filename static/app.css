@@ -1,7 +1,29 @@
-body {
-    padding: 0;
-    margin: 0;
+html, body, #container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
-html, body, #map {
-    height: 100%;
+
+body {
+  padding-top: 50px;
+}
+
+#map {
+  width: auto;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.navbar .navbar-brand {
+  font-weight: bold;
+}
+
+#sidebar {
+  width: 250px;
+  height: 100%;
+  max-width: 100%;
+  float: left;
+  -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 }
