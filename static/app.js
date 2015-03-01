@@ -28,13 +28,7 @@
   }
   Incident.prototype.save = function save(callback) {
     var req = new XMLHttpRequest();
-    req.onload = function saveXhrCallback() {
-      if (req.status == 200) {
-        callback(JSON.parse(req.responseText));
-      } else {
-        console.log(req.responseText);
-      }
-    };
+    req.onload = callback;
     req.open('post', 'incidents', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(this));
