@@ -4,10 +4,21 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /posts
+
+- url: /incidents
   script: _go_app
+
+- url: /incidents/.*
+  script: _go_app
+
 - url: /
   static_files: static/index.html
   upload: static/index.html
+
 - url: /
   static_dir: static
+
+admin_console:
+  pages:
+  - name: Moderation
+    url: /

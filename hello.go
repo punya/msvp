@@ -2,14 +2,22 @@ package hello
 
 import (
 	"appengine"
-	"appengine/search"
+	"appengine/datastore"
+	"appengine/user"
 	"encoding/json"
+	"errors"
 	"net/http"
+	"regexp"
+	"strconv"
 )
+
+var re = regexp.MustCompile("/incidents/(\\d+)")
 
 type Incident struct {
 	appengine.GeoPoint
-	Text string
+	Text     string
+	Verified bool
+	Key      int64 `datastore:"-"`
 }
 
 type PostResult struct {
@@ -17,53 +25,93 @@ type PostResult struct {
 }
 
 func init() {
-	http.HandleFunc("/posts", handler)
+	http.HandleFunc("/incidents", dispatch)
+	http.HandleFunc("/incidents/", dispatch)
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-
+func dispatch(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
-	index, err := search.Open("incidents")
+	decoder := json.NewDecoder(r.Body)
+	encoder := json.NewEncoder(w)
+	var err error
+
+	w.Header().Set("Content-Type", "application/json")
+
+	if r.URL.Path == "/incidents" {
+		switch r.Method {
+		case "GET":
+			if incidents, err := getAllIncidents(c); err == nil {
+				encoder.Encode(incidents)
+				return
+			}
+		case "POST":
+			var incident Incident
+			if err := decoder.Decode(&incident); err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
+			addIncident(c, incident)
+			return
+		default:
+			http.Error(w, "Invalid method", http.StatusBadRequest)
+			return
+		}
+	}
+	if match := re.FindStringSubmatch(r.URL.Path); match != nil {
+		key, err := strconv.ParseInt(match[1], 10, 64)
+		if err != nil {
+			http.Error(w, "Not found", http.StatusNotFound)
+			return
+		}
+		switch r.Method {
+		case "PUT":
+			var incident Incident
+			if err = decoder.Decode(&incident); err != nil {
+				break
+			}
+			incident.Key = key
+			err = saveIncident(c, incident)
+		default:
+			http.Error(w, "Invalid method", http.StatusBadRequest)
+			return
+		}
+	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	encoder := json.NewEncoder(w)
+	http.Error(w, "Not found", http.StatusNotFound)
+}
 
-	switch r.Method {
-	case "GET":
-		var incidents []Incident
-		for it := index.List(c, nil); ; {
-			var incident Incident
-			_, err := it.Next(&incident)
-			if err == search.Done {
-				break
-			}
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			incidents = append(incidents, incident)
-		}
-		encoder.Encode(incidents)
-
-	case "POST":
-		var incident Incident
-		err := decoder.Decode(&incident)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		id, err := index.Put(c, "", &incident)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		result := PostResult{DocId: id}
-		encoder.Encode(result)
+func getAllIncidents(c appengine.Context) (incidents []Incident, err error) {
+	query := datastore.NewQuery("Incident")
+	if !user.IsAdmin(c) {
+		query = query.Filter("Verified =", true)
 	}
+	keys, err := query.GetAll(c, &incidents)
+	if err != nil {
+		return
+	}
+	for i, _ := range keys {
+		incidents[i].Key = keys[i].IntID()
+	}
+	return
+}
+
+func addIncident(c appengine.Context, incident Incident) (err error) {
+	if !user.IsAdmin(c) {
+		incident.Verified = false
+	}
+
+	_, err = datastore.Put(c, datastore.NewIncompleteKey(c, "Incident", nil), &incident)
+	return
+}
+
+func saveIncident(c appengine.Context, incident Incident) (err error) {
+	if !user.IsAdmin(c) {
+		return errors.New("unauthorized")
+	}
+	_, err = datastore.Put(c, datastore.NewKey(c, "Incident", "", incident.Key, nil), &incident)
+	return
 }

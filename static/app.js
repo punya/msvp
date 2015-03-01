@@ -16,11 +16,6 @@
   map.addLayer(markers);
   map.locate({setView: true, maxZoom: 16});
 
-  var locateControl = L.control.locate({
-    drawCircle: false,
-    follow: false
-  }).addTo(map);
-
   function Incident(text, lat, lng) {
     this.text = text;
     this.lat = lat;
@@ -40,7 +35,7 @@
         console.log(req.responseText);
       }
     };
-    req.open('post', 'posts', true);
+    req.open('post', 'incidents', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(this));
   }
@@ -51,16 +46,18 @@
       new Incident(json.Text, json.Lat, json.Lng).render();
     });
   };
-  req.open('get', 'posts', true);
+  req.open('get', 'incidents', true);
   req.send();
 
   map.on('contextmenu', function handleLongPress(e) {
     var marker = L.marker(e.latlng);
 
     var container = document.createElement('div');
-    container.innerHTML = '<textarea></textarea><br><button>Post</button>';
-    var storyTextArea = container.querySelector('textarea');
+    container.innerHTML = '<textarea></textarea><br><button>Post</button><span></span>';
     container.querySelector('button').addEventListener('click', function handlePostButton() {
+      var storyTextArea = container.querySelector('textarea');
+      var savingMessage = container.querySelector('span');
+      savingMessage.innerHTML = 'Saving&hellip;';
       var incident = new Incident(storyTextArea.value, e.latlng.lat, e.latlng.lng);
       incident.render();
       incident.save(function afterSave(e) {
@@ -68,7 +65,7 @@
       });
     });
     marker.on('popupclose', function handlePostPopupClose() {
-      markers.removeLayer(marker);
+      map.removeLayer(marker);
     });
 
     marker.addTo(map);
