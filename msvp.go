@@ -1,4 +1,4 @@
-package hello
+package msvp
 
 import (
 	"appengine"
