@@ -16,7 +16,11 @@ type Incident struct {
 	appengine.GeoPoint
 	Text     string
 	Verified bool
-	Key      int64 `datastore:"-"`
+}
+
+type IncidentWithKey struct {
+	Incident
+	Key int64 `datastore:"-"`
 }
 
 func init() {
@@ -37,7 +41,7 @@ func getAllIncidents(w http.ResponseWriter, r *http.Request) {
 		query = query.Filter("Verified =", true)
 	}
 
-	var incidents []Incident
+	var incidents []IncidentWithKey
 	keys, err := query.GetAll(c, &incidents)
 	if err != nil {
 		return
