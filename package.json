@@ -1,0 +1,22 @@
+{
+  "name": "msvp",
+  "version": "1.0.0",
+  "description": "Mapping Sexual Violence Project",
+  "main": "static/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/punya/msvp.git"
+  },
+  "author": "Punya Biswal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/punya/msvp/issues"
+  },
+  "homepage": "https://github.com/punya/msvp",
+  "devDependencies": {
+    "babel": "^4.7.3"
+  }
+}
