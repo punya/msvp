@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mapping Sexual Violence</title>
@@ -13,74 +14,181 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
     <link rel="stylesheet" href="app.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <div class="navbar-icon-container">
-            <a href="#" class="navbar-icon pull-right visible-xs about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle fa-lg white"></i></a>
-            <a href="#" class="navbar-icon pull-right visible-xs post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit fa-lg white"></i></a>
-          </div>
-          <a class="navbar-brand" href="#">Mapping Sexual Violence</a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-icon-container">
+                    <a href="#" class="navbar-icon pull-right visible-xs about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle fa-lg white"></i></a>
+                    <a href="#" class="navbar-icon pull-right visible-xs post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit fa-lg white"></i></a>
+                </div>
+                <a class="navbar-brand" href="#">Mapping Sexual Violence</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit white"></i>&nbsp;&nbsp;Report an incident</a>
+                    </li>
+                    <li><a href="#" class="about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About this site</a>
+                    </li>
+                </ul>]
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#" class="post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit white"></i>&nbsp;&nbsp;Report an incident</a></li>
-            <li><a href="#" class="about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About this site</a></li>
-          </ul>]
-        </div>
-      </div>
     </div>
 
     <div id="container">
-      <div id="map"></div>
+        <div id="map"></div>
     </div>
 
     <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">About this site</h4>
-          </div>
-          <div class="modal-body">
-            <p>यह वेबसाइट जल्द ही अन्य क्षेत्रीय भाषाओं में उपलब्ध होगी.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">About this site</h4>
+                </div>
+                <div class="modal-body">
+                    <p>यह वेबसाइट जल्द ही अन्य क्षेत्रीय भाषाओं में उपलब्ध होगी.</p>
+
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation" class="active"><a data-toggle="tab" href="#about">About us</a>
+                        </li>
+                        <li role="presentation"><a data-toggle="tab" href="#rules">Rules for posting</a>
+                        </li>
+                        <li role="presentation"><a data-toggle="tab" href="#safety">Your safety</a>
+                        </li>
+                        <li role="presentation"><a data-toggle="tab" href="#disclaimer">Disclaimer</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <div role="tabpanel" class="tab-pane active" id="about">
+                            <p>
+                                Mapping Sexual Violence is a website that emerged out of an <a href="http://www.outofprintmagazine.in">Out of Print</a> initiative to produce an anthology featuring fiction and non-fiction writing on sexual violence in South Asia. The editors of the special issue – Meena Kandasamy, Samhita Arni and Indira Chandrasekhar – recognised that this effort needs to extend beyond the literary community. Meena proposed the idea of a map that records stories of sexual violence from across the country and the region. The purpose, to provide a platform to document silent voices, voices that have been unable to share their stories.
+                            </p>
+
+                            <p>
+                                <a href=".">Mapping Sexual Violence</a> is intended to be a collective resource. It is meant for its users to use as a platform to share their stories, to build a network resource and a community.
+                            </p>
+
+                            <p>
+                                We want to acknowledge the contributions of Punyashloka Biswal, who has so generously donated his time to create this website, and Mira Brunner and Rob Singleton for their critical ideas and input on safety, accessibilty and design. Gratitude, also, to numerous other friends, conversations with whom helped hone ideas and create this place.
+                            </p>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="rules">
+                            <ul>
+                                <li>This website is an open and safe space for all people to participate. Please be mindful of what you post. Any posts that contain hate speech, libelous or defammatory statements will be removed by the moderator.</li>
+                                <li>All posts will first be approved by a moderator before appearing onsite.</li>
+                                <li>No naming of perpetrators. This may sound contrary to our purpose, but we want this website to first and foremost be a place where all can share their stories and responses. But we also need to protect this space and do not wish for the sharing of stories to be usurped by trials in public, nor do we wish to be embroiled in law suits.</li>
+                                <li>No using photographs.</li>
+                            </ul>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="safety">
+                            <p>
+                                Please be aware of your safety at all times. If you are undergoing sexual violence or harassment, please do consider if posting on this website can create further difficulties for you before posting. We also allow untagged posts if you wish to protect your location – we strongly encourage you to do this if you feel unsafe.
+                            </p>
+
+                            <p>
+                                You may also consider zooming out and posting on a city, or a district, instead of at a street or location.
+                            </p>
+
+                            <p>
+                                Please do not compromise your safety.
+                            </p>
+
+                            <p>
+                                The only data collected by this website is the location where you tag your post, and the contents of your post itself.
+                            </p>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="disclaimer">
+                            <p>
+                                (The purpose of this disclaimer is to protect Mapping Sexual Violence from any liabilities, law suits etc and to prevent any post from being admissable in a court of a law.)
+                            </p>
+
+                            <p>
+                                In no event will mapping-sexual-violence.appspot.com be responsible for damages of any nature whatsoever resulting from the use of or reliance upon information or the product to which information refers.
+                            </p>
+
+                            <p>
+                                The information contained in this website is for general information purposes only. The information is provided by users and we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or any information or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+                            </p>
+
+                            <p>
+                                Neither we nor any third parties provide any warranty or guarantee as to the accuracy, completeness, non misleading or suitability of the information and materials found on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.
+                            </p>
+
+                            <p>
+                                Visitors who use this website and rely on any information do so at their own risk.
+                            </p>
+
+                            <p>
+                                You must not use our website in any way which is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity. The majority of content posted in this forum is created by members of the public. The views expressed are theirs and unless specifically stated are not those of mapping-sexual-violence.appspot.com. We accept no responsibility for any loss or harm incurred.
+                            </p>
+
+                            <p>
+                                In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+                            </p>
+
+                            <p>
+                                This website includes links to other websites owned and operated by third parties.These links are not endorsements or recommendations.
+                            </p>
+
+                            <h1>Limitations of liability</h1>
+
+                            <p>
+                                mapping-sexual-violence.appspot.com will not be liable to you (whether under the law of contract, the law of torts or otherwise) in relation to the contents of, or use of, or otherwise in connection with, this website:
+                            </p>
+
+                            <p>
+                                [to the extent that the website is provided free-of-charge, for any direct loss;]
+                                <br> for any indirect, special or consequential loss; or
+                                <br> for any business losses, loss of revenue, income, profits or anticipated savings, loss of contracts or business relationships, loss of reputation or goodwill, or loss or corruption of information or data.
+                            </p>
+
+                            <p>
+                                These limitations of liability apply even if mapping-sexual-violence.appspot.com has been expressly advised of the potential loss.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Report an incident</h4>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <input type="text" class="form-control" id="location" placeholder="Location">
-                <p class="help-block">
-                  Leave this blank to report an incident without a location,
-                  or long-press/right-click on the map to select a specific point.
-                </p>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" rows="10"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="submit">Submit</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel">Cancel</button>
-          </div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Report an incident</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="location" placeholder="Location">
+                            <p class="help-block">
+                                Leave this blank to report an incident without a location, or long-press/right-click on the map to select a specific point.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="10"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="submit">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel">Cancel</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -89,5 +197,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
     <script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
     <script src="app.js"></script>
-  </body>
+</body>
+
 </html>
