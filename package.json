@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/punya/msvp",
   "devDependencies": {
-    "babel": "^4.7.3"
+    "babel": "^4.7.3",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "watchify": "^2.4.0"
   }
 }

@@ -18,12 +18,17 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
+          <div class="navbar-icon-container">
+            <a href="#" class="navbar-icon pull-right visible-xs about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle fa-lg white"></i></a>
+            <a href="#" class="navbar-icon pull-right visible-xs post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit fa-lg white"></i></a>
+          </div>
           <a class="navbar-brand" href="#">Mapping Sexual Violence</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
-          </ul>
+            <li><a href="#" class="post-btn" data-toggle="modal" data-target="#reportModal"><i class="fa fa-edit white"></i>&nbsp;&nbsp;Report an incident</a></li>
+            <li><a href="#" class="about-btn" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About this site</a></li>
+          </ul>]
         </div>
       </div>
     </div>
@@ -37,13 +42,42 @@
         <div class="modal-content">
           <div class="modal-header">
             <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">About</h4>
+            <h4 class="modal-title">About this site</h4>
           </div>
           <div class="modal-body">
-            <p>Information and links go here.</p>
+            <p>यह वेबसाइट जल्द ही अन्य क्षेत्रीय भाषाओं में उपलब्ध होगी.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Report an incident</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="location" placeholder="Location">
+                <p class="help-block">
+                  Leave this blank to report an incident without a location,
+                  or long-press/right-click on the map to select a specific point.
+                </p>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" rows="10"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="submit">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel">Cancel</button>
           </div>
         </div>
       </div>

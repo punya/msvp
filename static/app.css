@@ -14,6 +14,29 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.white {
+  color: white;
+}
+
 .navbar .navbar-brand {
   font-weight: bold;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+
+.navbar-collapse.in {
+  overflow-y: hidden;
+}
+
+.navbar-header .navbar-icon-container {
+  margin-right: 15px;
+}
+
+.navbar-header .navbar-icon {
+  line-height: 50px;
+  height: 50px;
+}
+
+.navbar-header a.navbar-icon {
+  margin-left: 25px;
 }

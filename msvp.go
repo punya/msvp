@@ -13,9 +13,10 @@ import (
 )
 
 type Incident struct {
-	appengine.GeoPoint
-	Text     string
-	Verified bool
+	Lat      float64 `datastore:lat`
+	Lng      float64 `datastore:lng`
+	Text     string  `datastore:text`
+	Verified bool    `datastore:verified`
 }
 
 type IncidentWithKey struct {
@@ -25,15 +26,14 @@ type IncidentWithKey struct {
 
 func init() {
 	router := mux.NewRouter()
-	incidents := router.PathPrefix("/incidents").Subrouter()
-	incidents.HandleFunc("/", getAllIncidents).Methods("GET")
-	incidents.HandleFunc("/", addIncident).Methods("POST")
-	incidents.HandleFunc("/{id:[0-9]+}", saveIncident).Methods("PUT")
+	router.HandleFunc("/incidents", getIncidents).Methods("GET")
+	router.HandleFunc("/incidents", addIncident).Methods("POST")
+	router.HandleFunc(`/incidents/{id:\d+}`, updateIncident).Methods("PUT")
 
 	http.Handle("/", router)
 }
 
-func getAllIncidents(w http.ResponseWriter, r *http.Request) {
+func getIncidents(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 
 	query := datastore.NewQuery("Incident")
@@ -41,11 +41,12 @@ func getAllIncidents(w http.ResponseWriter, r *http.Request) {
 		query = query.Filter("Verified =", true)
 	}
 
-	var incidents []IncidentWithKey
+	incidents := []IncidentWithKey{}
 	keys, err := query.GetAll(c, &incidents)
 	if err != nil {
 		return
 	}
+
 	for i, _ := range keys {
 		incidents[i].Key = keys[i].IntID()
 	}
@@ -68,12 +69,16 @@ func addIncident(w http.ResponseWriter, r *http.Request) {
 		incident.Verified = false
 	}
 
-	if _, err := datastore.Put(c, datastore.NewIncompleteKey(c, "Incident", nil), &incident); err != nil {
+	key, err := datastore.Put(c, datastore.NewIncompleteKey(c, "Incident", nil), &incident)
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(key)
 }
 
-func saveIncident(w http.ResponseWriter, r *http.Request) {
+func updateIncident(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	if !user.IsAdmin(c) {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
