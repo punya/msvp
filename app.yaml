@@ -5,6 +5,11 @@ api_version: go1
 
 skip_files:
 - ^node_modules/(.*/)?
+- ^LICENSE
+- ^README\.md
+- ^[^/]*\.js
+- ^package\.json
+- ^\.gitignore
 
 handlers:
 
