@@ -20,8 +20,21 @@ body {
 
 .navbar .navbar-brand {
   font-weight: bold;
+  font-size: 24px;
+  height: 50px;
+  color: red;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: orange;
+}
+
+.navbar-nav>li>a {
   font-size: 18px;
-  color: #FFFFFF;
+}
+
+.navbar-inverse {
+  background: #555;
 }
 
 .navbar-collapse.in {

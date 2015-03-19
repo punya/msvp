@@ -18,7 +18,7 @@ var markers = new L.MarkerClusterGroup();
 map.addLayer(markers);
 map.on('contextmenu', (e) => {
   $("#location").val(e.latlng.lat + "," + e.latlng.lng);
-  $("#reportModal").modal();
+  $("#shareModal").modal();
 });
 
 $.getJSON('incidents', (data) => {
@@ -28,12 +28,8 @@ $.getJSON('incidents', (data) => {
 });
 
 $('#submit').click(() => {
-  let loc = $('#location').val().split(',');
-  let lat = NaN, lng = NaN;
-  if (loc.length == 2) {
-    lat = parseFloat(loc[0]);
-    lng = parseFloat(loc[1]);
-  }
+  let [lat, lng] = $('#location').val().split(',').map(parseFloat);
+  console.log('hi');
   let text = $('textarea').val();
   $.post('incidents', JSON.stringify({lat, lng, text}));
 });
