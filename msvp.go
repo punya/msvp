@@ -15,7 +15,7 @@ import (
 type Incident struct {
 	Lat      float64 `datastore:lat`
 	Lng      float64 `datastore:lng`
-	Text     string  `datastore:text`
+	Text     string  `datastore:"text,noindex"`
 	Verified bool    `datastore:verified`
 }
 
