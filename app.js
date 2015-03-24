@@ -23,7 +23,7 @@ map.on('contextmenu', (e) => {
 
 $.getJSON('incidents', (data) => {
   for (let json of data) {
-    new Incident(json.Text, json.Lat, json.Lng).render(markers);
+    new Incident(json).render(markers);
   }
 });
 

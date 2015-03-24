@@ -13,10 +13,10 @@ import (
 )
 
 type Incident struct {
-	Lat      float64 `datastore:"lat"`
-	Lng      float64 `datastore:"lng"`
-	Text     string  `datastore:"text,noindex"`
-	Verified bool    `datastore:"verified"`
+	Lat      float64 `datastore:",noindex" json:"lat"`
+	Lng      float64 `datastore:",noindex" json:"lng"`
+	Text     string  `datastore:",noindex" json:"text"`
+	Verified bool    `json:"verified"`
 }
 
 type IncidentWithKey struct {

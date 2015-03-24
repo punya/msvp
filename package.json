@@ -4,7 +4,7 @@
   "description": "Mapping Sexual Violence Project",
   "main": "static/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "watchify app.js -t babelify --outfile static/app.js -w"
   },
   "repository": {
     "type": "git",

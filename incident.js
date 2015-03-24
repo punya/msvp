@@ -1,5 +1,5 @@
 export class Incident {
-  constructor(text, lat, lng) {
+  constructor({text, lat, lng}) {
     this.text = text;
     this.lat = lat;
     this.lng = lng;
