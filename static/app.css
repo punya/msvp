@@ -53,3 +53,8 @@ body {
 .navbar-header a.navbar-icon {
   margin-left: 25px;
 }
+
+.leaflet-popup-content {
+  max-height: 145px;
+  overflow-y: auto;
+}
