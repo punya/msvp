@@ -17,8 +17,9 @@ L.control.locate().addTo(map);
 var markers = new L.MarkerClusterGroup();
 map.addLayer(markers);
 map.on('contextmenu', (e) => {
-  $("#location").val(e.latlng.lat + "," + e.latlng.lng);
-  $("#shareModal").modal();
+  $('#location').val(e.latlng.lat + ',' + e.latlng.lng);
+  $('textarea').val('');
+  $('#shareModal').modal();
 });
 
 $.getJSON('incidents', (data) => {
@@ -29,7 +30,6 @@ $.getJSON('incidents', (data) => {
 
 $('#submit').click(() => {
   let [lat, lng] = $('#location').val().split(',').map(parseFloat);
-  console.log('hi');
   let text = $('textarea').val();
   $.post('incidents', JSON.stringify({lat, lng, text}));
 });
