@@ -12,7 +12,7 @@ $.getJSON('incidents?verified=false', function(incidents) {
                     </div>
                     <div class="form-group">
                         <label>Longitude</label>
-                        <input type="text" value="${lat}" class="form-control lng">
+                        <input type="text" value="${lng}" class="form-control lng">
                     </div>
                     <div class="form-group">
                         <label>Text</label>
