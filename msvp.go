@@ -21,7 +21,7 @@ type Incident struct {
 
 type IncidentWithKey struct {
 	Incident
-	Key int64 `datastore:"-"`
+	Key int64 `datastore:"-" json:"key"`
 }
 
 func init() {
