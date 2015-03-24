@@ -36,14 +36,17 @@ func init() {
 func getIncidents(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 
-	query := datastore.NewQuery("Incident")
-	if !user.IsAdmin(c) {
-		query = query.Filter("Verified =", true)
+	verified := true
+	if r.FormValue("verified") == "false" && user.IsAdmin(c) {
+		verified = false
 	}
+
+	query := datastore.NewQuery("Incident").Filter("Verified =", verified)
 
 	incidents := []IncidentWithKey{}
 	keys, err := query.GetAll(c, &incidents)
 	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
