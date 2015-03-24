@@ -29,6 +29,7 @@ func init() {
 	router.HandleFunc("/incidents", getIncidents).Methods("GET")
 	router.HandleFunc("/incidents", addIncident).Methods("POST")
 	router.HandleFunc(`/incidents/{id:\d+}`, updateIncident).Methods("PUT")
+	router.HandleFunc(`/incidents/{id:\d+}`, deleteIncident).Methods("DELETE")
 
 	http.Handle("/", router)
 }
@@ -102,5 +103,26 @@ func updateIncident(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err = datastore.Put(c, datastore.NewKey(c, "Incident", "", key, nil), &incident)
-	return
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func deleteIncident(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+	if !user.IsAdmin(c) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	key, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+
+	err = datastore.Delete(c, datastore.NewKey(c, "Incident", "", key, nil))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }

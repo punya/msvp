@@ -25,4 +25,4 @@ _testmain.go
 *.swp
 /node_modules/
 /npm-debug.log
-static/app.js
+static/*.js

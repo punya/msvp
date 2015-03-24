@@ -34,4 +34,4 @@ handlers:
 admin_console:
   pages:
   - name: Moderation
-    url: /
+    url: /admin
